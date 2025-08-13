@@ -19,8 +19,9 @@ class AuthService:
     
     async def register_user(self, user_data: UserCreate) -> Tuple[UserResponse, dict]:
         """Register new user and create default team"""
+        db = self._get_db()
         # Check if user already exists
-        existing_user = await self.db.users.find_one({"email": user_data.email})
+        existing_user = await db.users.find_one({"email": user_data.email})
         if existing_user:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
