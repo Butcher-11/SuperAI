@@ -11,7 +11,12 @@ from app.services.n8n_service import n8n_service
 
 class WorkflowService:
     def __init__(self):
-        self.db = get_database()
+        self.db = None
+    
+    def _get_db(self):
+        if not self.db:
+            self.db = get_database()
+        return self.db
     
     async def create_workflow(self, user_id: str, team_id: str, workflow_data: WorkflowCreate) -> WorkflowResponse:
         """Create a new workflow"""
