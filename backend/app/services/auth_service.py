@@ -47,8 +47,8 @@ class AuthService:
         team.owner_id = user.id
         
         # Insert both documents
-        await self.db.teams.insert_one(team.dict())
-        await self.db.users.insert_one(user.dict())
+        await db.teams.insert_one(team.dict())
+        await db.users.insert_one(user.dict())
         
         # Generate tokens
         tokens = await self._generate_user_tokens(user)
