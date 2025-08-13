@@ -57,7 +57,8 @@ class AuthService:
     
     async def authenticate_user(self, email: str, password: str) -> Tuple[UserResponse, dict]:
         """Authenticate user and return tokens"""
-        user_doc = await self.db.users.find_one({"email": email})
+        db = self._get_db()
+        user_doc = await db.users.find_one({"email": email})
         if not user_doc:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -79,7 +80,7 @@ class AuthService:
             )
         
         # Update last login
-        await self.db.users.update_one(
+        await db.users.update_one(
             {"id": user.id},
             {"$set": {"last_login": datetime.utcnow()}}
         )
@@ -95,7 +96,8 @@ class AuthService:
         payload = verify_token(refresh_token, "refresh")
         user_id = payload.get("sub")
         
-        user_doc = await self.db.users.find_one({"id": user_id})
+        db = self._get_db()
+        user_doc = await db.users.find_one({"id": user_id})
         if not user_doc:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -110,7 +112,8 @@ class AuthService:
         payload = verify_token(access_token, "access")
         user_id = payload.get("sub")
         
-        user_doc = await self.db.users.find_one({"id": user_id})
+        db = self._get_db()
+        user_doc = await db.users.find_one({"id": user_id})
         if not user_doc:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
