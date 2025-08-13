@@ -1,6 +1,4 @@
-<file>
-      <absolute_file_name>/app/backend/app/api/chat.py</absolute_file_name>
-      <content">from typing import List, Dict, Any
+from typing import List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status, WebSocket, WebSocketDisconnect
 from datetime import datetime
 import json
@@ -170,5 +168,4 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
         manager.disconnect(user_id)
     except Exception as e:
         print(f"WebSocket error: {e}")
-        manager.disconnect(user_id)</content>
-    </file>
+        manager.disconnect(user_id)
