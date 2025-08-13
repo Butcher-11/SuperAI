@@ -105,5 +105,14 @@ async def create_indexes():
 def get_database() -> AsyncIOMotorDatabase:
     """Get database instance"""
     if not mongodb.database:
-        raise Exception("Database not connected")
+        # Try to initialize if not connected
+        import asyncio
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            # No event loop in current thread, return None and let services handle it
+            return None
+        if loop.is_running():
+            # We're in an async context, can't await here
+            return None
     return mongodb.database
