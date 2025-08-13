@@ -156,11 +156,12 @@ class AuthService:
     
     async def get_user_team(self, user_id: str) -> Optional[dict]:
         """Get user's team information"""
-        user_doc = await self.db.users.find_one({"id": user_id})
+        db = self._get_db()
+        user_doc = await db.users.find_one({"id": user_id})
         if not user_doc or not user_doc.get("team_id"):
             return None
         
-        team_doc = await self.db.teams.find_one({"id": user_doc["team_id"]})
+        team_doc = await db.teams.find_one({"id": user_doc["team_id"]})
         return team_doc
 
 auth_service = AuthService()
