@@ -39,9 +39,8 @@ anthropic>=0.21.0
 langchain>=0.1.0
 langchain-openai>=0.0.8
 
-# Workflow automation
-n8n-client>=0.1.0
-workflow-engine>=1.0.0
+# Workflow automation (we'll build n8n integration manually)
+# n8n integration will use httpx for API calls
 
 # Data processing
 pandas>=2.2.0
