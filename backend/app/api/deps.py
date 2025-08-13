@@ -1,6 +1,4 @@
-<file>
-      <absolute_file_name>/app/backend/app/api/deps.py</absolute_file_name>
-      <content">from typing import Generator, Optional
+from typing import Generator, Optional
 from fastapi import Depends, HTTPException, status, Header
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
@@ -83,5 +81,4 @@ def get_team_admin(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Admin privileges required"
         )
-    return current_user</content>
-    </file>
+    return current_user
