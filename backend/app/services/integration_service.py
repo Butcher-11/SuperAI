@@ -12,8 +12,13 @@ from app.core.security import encrypt_oauth_token, decrypt_oauth_token
 
 class IntegrationService:
     def __init__(self):
-        self.db = get_database()
+        self.db = None
         self.http_client = httpx.AsyncClient()
+    
+    def _get_db(self):
+        if not self.db:
+            self.db = get_database()
+        return self.db
     
     async def get_user_integrations(self, user_id: str) -> List[Dict[str, Any]]:
         """Get all integrations for a user"""
