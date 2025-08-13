@@ -10,7 +10,12 @@ from app.db.redis import store_session, get_session, delete_session
 
 class AuthService:
     def __init__(self):
-        self.db = get_database()
+        self.db = None
+    
+    def _get_db(self):
+        if not self.db:
+            self.db = get_database()
+        return self.db
     
     async def register_user(self, user_data: UserCreate) -> Tuple[UserResponse, dict]:
         """Register new user and create default team"""
