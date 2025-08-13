@@ -14,7 +14,7 @@ from app.services.integration_service import integration_service
 
 class AIService:
     def __init__(self):
-        self.db = get_database()
+        self.db = None
         self.openai_client = None
         self.anthropic_client = None
         self.emergent_client = None
@@ -28,6 +28,11 @@ class AIService:
         
         if settings.EMERGENT_LLM_KEY:
             self.emergent_client = self._init_emergent_client()
+    
+    def _get_db(self):
+        if not self.db:
+            self.db = get_database()
+        return self.db
     
     def _init_emergent_client(self):
         """Initialize Emergent LLM client"""
