@@ -1,6 +1,4 @@
-<file>
-      <absolute_file_name>/app/backend/app/api/auth.py</absolute_file_name>
-      <content">from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer
 from pydantic import BaseModel
 
@@ -66,5 +64,4 @@ async def logout(current_user: UserResponse = Depends(get_current_active_user)):
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_info(current_user: UserResponse = Depends(get_current_active_user)):
     """Get current user information"""
-    return current_user</content>
-    </file>
+    return current_user
