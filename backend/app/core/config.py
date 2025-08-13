@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
     
     # CORS
-    CORS_ORIGINS: List[str] = os.getenv("CORS_ORIGINS", "*").split(",")
+    CORS_ORIGINS: str = os.getenv("CORS_ORIGINS", "*")
     
     # AI APIs
     OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY")
