@@ -12,13 +12,18 @@ class N8NService:
         self.base_url = settings.N8N_BASE_URL
         self.api_key = settings.N8N_API_KEY
         self.webhook_url = settings.N8N_WEBHOOK_URL
-        self.db = get_database()
+        self.db = None
         
         self.http_client = httpx.AsyncClient(
             base_url=self.base_url,
             headers={"Authorization": f"Bearer {self.api_key}"} if self.api_key else {},
             timeout=30.0
         )
+    
+    def _get_db(self):
+        if not self.db:
+            self.db = get_database()
+        return self.db
     
     async def create_n8n_workflow(self, workflow: Workflow) -> str:
         """Create workflow in n8n and return n8n workflow ID"""
